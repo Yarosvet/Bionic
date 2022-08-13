@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="img">
+    <file>img/search.png</file>
+    <file>img/logo.png</file>
+    <file>img/darkmode.png</file>
+    <file>img/settings.png</file>
+  </qresource>
+</RCC>
