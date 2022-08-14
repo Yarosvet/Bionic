@@ -1,8 +1,9 @@
-from PyQt5.QtWidgets import QMainWindow, QDialog, QFileDialog, QErrorMessage
-from PyQt5.QtGui import QCursor
+from PyQt5.QtWidgets import QMainWindow, QDialog, QFileDialog, QErrorMessage, QListWidgetItem, QWidget
+from PyQt5.QtGui import QCursor, QPixmap, QCloseEvent
 from PyQt5.QtCore import Qt, QStringListModel, QModelIndex
 from main_window import Ui_MainWindow
 from add_dialog import Ui_AddDialog
+from itembook_widget import Ui_itemWidget
 import requests
 import json
 from tarfile import TarFile
@@ -13,10 +14,33 @@ from shutil import rmtree
 class MainWin(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.error_dialog = QErrorMessage()
+        self.error_dialog.setModal(True)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.addDialog = AddDialog()
+        self.addDialog = AddDialog(self.update_list_books)
         self.ui.add_button.clicked.connect(self.add_clicked)
+        self.update_list_books()
+
+    def update_list_books(self):
+        for i in range(self.ui.listBooks.count()):
+            self.ui.listBooks.takeItem(i)
+        for el in os.listdir("books/"):
+            book_path = os.path.join("books/", el)
+            try:
+                if os.path.isdir(book_path) and os.path.exists(os.path.join(book_path, "book.json")):
+                    with open(os.path.join(book_path, "book.json"), 'r') as f:
+                        book = json.load(f)
+                    cover = ":/img/img/book.png"
+                    if book["cover"] is not None:
+                        cover = os.path.join(book_path, book["cover"])
+                    item = QListWidgetItem(self.ui.listBooks)
+                    item_widget = BookItemWidget(cover_path=cover, name=book["name"], date=book["translation_date"])
+                    item.setSizeHint(item_widget.size())
+                    self.ui.listBooks.addItem(item)
+                    self.ui.listBooks.setItemWidget(item, item_widget)
+            except Exception as exc:
+                self.error_dialog.showMessage(str(exc))
 
     def add_clicked(self):
         self.addDialog.show()
@@ -40,8 +64,9 @@ def install_book(tar_path, book_id=None):
 
 
 class AddDialog(QDialog):
-    def __init__(self):
+    def __init__(self, onclose_func=None):
         super().__init__()
+        self.onclose_func = onclose_func
         self.github_rels = None
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
@@ -50,6 +75,10 @@ class AddDialog(QDialog):
         self.ui.select_button.clicked.connect(self.select_clicked)
         self.ui.get_button.clicked.connect(self.get_clicked)
         self.ui.listbooks.doubleClicked.connect(self.book_clicked)
+
+    def closeEvent(self, a0: QCloseEvent) -> None:
+        if self.onclose_func:
+            self.onclose_func()
 
     def select_clicked(self):
         files = QFileDialog.getOpenFileNames(parent=self, caption="Select one or more book-files *.tar.gz",
@@ -88,3 +117,12 @@ class AddDialog(QDialog):
                 self.close()
             except Exception as exc:
                 self.error_dialog.showMessage(str(exc))
+
+
+class BookItemWidget(QWidget, Ui_itemWidget):
+    def __init__(self, cover_path: str, name: str, date: str):
+        super().__init__()
+        self.setupUi(self)
+        self.cover_label.setPixmap(QPixmap(cover_path))
+        self.name_label.setText(name)
+        self.date_label.setText(date)
