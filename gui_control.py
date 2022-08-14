@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QDialog, QFileDialog, QErrorMessage, QListWidgetItem, QWidget
-from PyQt5.QtGui import QCursor, QPixmap, QCloseEvent
-from PyQt5.QtCore import Qt, QStringListModel, QModelIndex
+from PyQt5.QtGui import QCursor, QPixmap, QCloseEvent, QDropEvent
+from PyQt5.QtCore import Qt, QStringListModel, QModelIndex, QEvent
 from main_window import Ui_MainWindow
 from add_dialog import Ui_AddDialog
 from itembook_widget import Ui_itemWidget
@@ -22,9 +22,25 @@ class MainWin(QMainWindow):
         self.ui.add_button.clicked.connect(self.add_clicked)
         self.update_list_books()
 
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.acceptProposedAction()
+
+    def dropEvent(self, event):
+        if event.mimeData().hasUrls():
+            for url in event.mimeData().urls():
+                try:
+                    install_book(url.path())
+                    self.update_list_books()
+                except Exception as exc:
+                    self.error_dialog.showMessage(str(exc))
+            event.acceptProposedAction()
+
     def update_list_books(self):
         for i in range(self.ui.listBooks.count()):
             self.ui.listBooks.takeItem(i)
+        if not os.path.exists("books/"):
+            return
         for el in os.listdir("books/"):
             book_path = os.path.join("books/", el)
             try:
