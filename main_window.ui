@@ -557,7 +557,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="searchfield">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -589,33 +589,26 @@ background-color: rgb(255, 255, 255);</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_4">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+           <widget class="QPushButton" name="search_button">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
             </property>
-            <property name="minimumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>20</width>
-              <height>20</height>
-             </size>
+            <property name="styleSheet">
+             <string notr="true">border : 0;
+background: transparent;</string>
             </property>
             <property name="text">
              <string/>
             </property>
-            <property name="pixmap">
-             <pixmap resource="res.qrc">:/img/img/search.png</pixmap>
+            <property name="icon">
+             <iconset resource="res.qrc">
+              <normaloff>:/img/img/search.png</normaloff>:/img/img/search.png</iconset>
             </property>
-            <property name="scaledContents">
-             <bool>true</bool>
+            <property name="iconSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -692,33 +685,26 @@ background-color: rgb(255, 255, 255);</string>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <widget class="QPushButton" name="settings_button">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
+        <property name="styleSheet">
+         <string notr="true">border : 0;
+background: transparent;</string>
         </property>
         <property name="text">
          <string/>
         </property>
-        <property name="pixmap">
-         <pixmap resource="res.qrc">:/img/img/settings.png</pixmap>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/img/img/settings.png</normaloff>:/img/img/settings.png</iconset>
         </property>
-        <property name="scaledContents">
-         <bool>true</bool>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -739,33 +725,26 @@ background-color: rgb(255, 255, 255);</string>
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+       <widget class="QPushButton" name="darkmode_button">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
+        <property name="styleSheet">
+         <string notr="true">border : 0;
+background: transparent;</string>
         </property>
         <property name="text">
          <string/>
         </property>
-        <property name="pixmap">
-         <pixmap resource="res.qrc">:/img/img/darkmode.png</pixmap>
+        <property name="icon">
+         <iconset resource="res.qrc">
+          <normaloff>:/img/img/darkmode.png</normaloff>:/img/img/darkmode.png</iconset>
         </property>
-        <property name="scaledContents">
-         <bool>true</bool>
+        <property name="iconSize">
+         <size>
+          <width>30</width>
+          <height>30</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -783,7 +762,7 @@ background-color: rgb(255, 255, 255);</string>
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="add_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -995,6 +974,9 @@ background-color: rgb(255, 255, 255);</string>
           <bold>true</bold>
           <stylestrategy>PreferAntialias</stylestrategy>
          </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(53, 132, 228);
