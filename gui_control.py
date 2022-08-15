@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QMainWindow, QDialog, QFileDialog, QErrorMessage, QListWidgetItem, QWidget
-from PyQt5.QtGui import QCursor, QPixmap, QCloseEvent, QDropEvent
-from PyQt5.QtCore import Qt, QStringListModel, QModelIndex, QEvent
+from PyQt5.QtGui import QCursor, QPixmap, QCloseEvent, QStandardItemModel, QStandardItem
+from PyQt5.QtCore import Qt, QStringListModel, QModelIndex
 from main_window import Ui_MainWindow
 from add_dialog import Ui_AddDialog
 from itembook_widget import Ui_itemWidget
+from entry_points import Ui_entryPointsView
 import requests
 import json
 from tarfile import TarFile
@@ -18,8 +19,10 @@ class MainWin(QMainWindow):
         self.error_dialog.setModal(True)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.entry_tree_widget = EntryPointsView()
         self.addDialog = AddDialog(self.update_list_books)
         self.ui.add_button.clicked.connect(self.add_clicked)
+        self.ui.listBooks.doubleClicked.connect(self.book_selected)
         self.update_list_books()
 
     def dragEnterEvent(self, event):
@@ -41,6 +44,7 @@ class MainWin(QMainWindow):
             self.ui.listBooks.takeItem(i)
         if not os.path.exists("books/"):
             return
+        self.valid_book_paths = []
         for el in os.listdir("books/"):
             book_path = os.path.join("books/", el)
             try:
@@ -55,11 +59,24 @@ class MainWin(QMainWindow):
                     item.setSizeHint(item_widget.size())
                     self.ui.listBooks.addItem(item)
                     self.ui.listBooks.setItemWidget(item, item_widget)
+                    self.valid_book_paths.append(book_path)
             except Exception as exc:
                 self.error_dialog.showMessage(str(exc))
 
     def add_clicked(self):
         self.addDialog.show()
+
+    def book_selected(self, index: QModelIndex):
+        try:
+            self.setVisible(False)
+            self.entry_tree_widget.show()
+            self.entry_tree_widget.closeEvent = self.tree_closed
+            self.entry_tree_widget.set_book(self.valid_book_paths[index.row()])
+        except Exception as exc:
+            self.error_dialog.showMessage(str(exc))
+
+    def tree_closed(self, event):
+        self.setVisible(True)
 
 
 def install_book(tar_path, book_id=None):
@@ -77,6 +94,17 @@ def install_book(tar_path, book_id=None):
     os.mkdir(book_path)
     with TarFile.open(name=tar_path, mode="r") as tf:
         tf.extractall(path=book_path)
+
+
+def find_point_by_id(entry_points, p_id: int):
+    for el in entry_points:
+        if el["id"] == p_id:
+            return el
+        if el["nested"]:
+            res = find_point_by_id(el["nested"], p_id=p_id)
+            if res is not None:
+                return res
+    return None
 
 
 class AddDialog(QDialog):
@@ -142,3 +170,50 @@ class BookItemWidget(QWidget, Ui_itemWidget):
         self.cover_label.setPixmap(QPixmap(cover_path))
         self.name_label.setText(name)
         self.date_label.setText(date)
+
+
+class EntryPointsView(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_entryPointsView()
+        self.ui.setupUi(self)
+        self.book = None
+        self.error_dialog = QErrorMessage()
+        self.error_dialog.setModal(True)
+        self.treeModel = QStandardItemModel()
+        self.treeModel.setHorizontalHeaderLabels(["Entry points"])
+        self.ui.treePoints.setModel(self.treeModel)
+        self.ui.treePoints.clicked.connect(self.onclick_item)
+        self.ui.treePoints.doubleClicked.connect(self.ondbclick_item)
+
+    def set_book(self, book_path: str):
+        try:
+            with open(os.path.join(book_path, "book.json"), 'r') as f:
+                self.book = json.load(f)
+            self.ui.treePoints.rootNode = self.ui.treePoints.model().invisibleRootItem()
+            self.build_tree(self.ui.treePoints.model().invisibleRootItem(), self.book["entry_points"])
+            self.ui.treePoints.expandAll()
+        except Exception as exc:
+            self.error_dialog.showMessage(str(exc))
+
+    def build_tree(self, parent: QStandardItem, entry_points):
+        if not entry_points:
+            return
+        for p in entry_points:
+            item = QStandardItem(p["name"])
+            item.setData(p["id"])
+            parent.appendRow([item])
+            self.build_tree(item, p["nested"])
+
+    def onclick_item(self):
+        point_id = self.treeModel.itemFromIndex(self.ui.treePoints.selectedIndexes()[0]).data()
+        try:
+            point = find_point_by_id(self.book["entry_points"], point_id)
+            self.ui.point_name.setText(point["name"])
+            self.ui.pointText.setText(point["caption"])
+        except Exception as exc:
+            self.error_dialog.showMessage(str(exc))
+
+    def ondbclick_item(self):
+        point_id = self.treeModel.itemFromIndex(self.ui.treePoints.selectedIndexes()[0]).data()
+        print(point_id)
