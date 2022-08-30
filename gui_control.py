@@ -14,6 +14,15 @@ import os
 from shutil import rmtree
 
 
+def check_by_filter(text, filter_expression="") -> bool:
+    if filter_expression == "":
+        return True
+    for el in filter_expression.split():
+        if el not in text:
+            return False
+    return True
+
+
 class MainWin(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -27,6 +36,7 @@ class MainWin(QMainWindow):
         self.addDialog = AddDialog(self, self.update_list_books)
         self.ui.add_button.clicked.connect(self.add_clicked)
         self.ui.listBooks.doubleClicked.connect(self.book_selected)
+        self.ui.searchfield.textChanged.connect(self.search_update)
         self.update_list_books()
 
     def showEvent(self, a0) -> None:
@@ -34,6 +44,22 @@ class MainWin(QMainWindow):
         centerPoint = QDesktopWidget().availableGeometry().center()
         qtRectangle.moveCenter(centerPoint)
         self.move(qtRectangle.topLeft())
+
+    def search_update(self):
+        image_str = "image: url(:/img/img/search.png) right;"
+        stsheet = self.ui.searchfield.styleSheet()
+        if self.ui.searchfield.text().strip() != "":
+            stsheet = stsheet.replace(image_str, "")
+        elif image_str not in stsheet:
+            stsheet += image_str
+        self.ui.searchfield.setStyleSheet(stsheet)
+        self.update_list_books(self.ui.searchfield.text())
+
+    def update_addbook_hint(self):
+        if self.ui.listBooks.count() == 0:
+            self.ui.addbook_label.setFixedHeight(19)
+        else:
+            self.ui.addbook_label.setFixedHeight(0)
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
@@ -49,7 +75,7 @@ class MainWin(QMainWindow):
                     self.error_dialog.showMessage(str(exc))
             event.acceptProposedAction()
 
-    def update_list_books(self):
+    def update_list_books(self, filter_expression=""):
         for i in range(self.ui.listBooks.count()):
             self.ui.listBooks.takeItem(i)
         if not os.path.exists("books/"):
@@ -61,6 +87,8 @@ class MainWin(QMainWindow):
                 if os.path.isdir(book_path) and os.path.exists(os.path.join(book_path, "book.json")):
                     with open(os.path.join(book_path, "book.json"), 'r') as f:
                         book = json.load(f)
+                    if not check_by_filter(book["name"], filter_expression=filter_expression):
+                        continue
                     cover = ":/img/img/book.png"
                     if book["cover"] is not None:
                         cover = os.path.join(book_path, book["cover"])
@@ -73,6 +101,7 @@ class MainWin(QMainWindow):
                     self.valid_book_paths.append(book_path)
             except Exception as exc:
                 self.error_dialog.showMessage(str(exc))
+        self.update_addbook_hint()
 
     def add_clicked(self):
         self.addDialog.show()
