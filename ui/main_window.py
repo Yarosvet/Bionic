@@ -169,6 +169,9 @@ class Ui_MainWindow(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         MainWindow.setPalette(palette)
         MainWindow.setAcceptDrops(True)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
@@ -281,9 +284,9 @@ class Ui_MainWindow(object):
         self.settings_button.setStyleSheet("border : 0;\n"
 "background: transparent;")
         self.settings_button.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/img/img/settings.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.settings_button.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/img/img/settings.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.settings_button.setIcon(icon1)
         self.settings_button.setIconSize(QtCore.QSize(30, 30))
         self.settings_button.setObjectName("settings_button")
         self.horizontalLayout.addWidget(self.settings_button)
@@ -294,9 +297,9 @@ class Ui_MainWindow(object):
         self.darkmode_button.setStyleSheet("border : 0;\n"
 "background: transparent;")
         self.darkmode_button.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/img/img/darkmode.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.darkmode_button.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/img/img/darkmode.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.darkmode_button.setIcon(icon2)
         self.darkmode_button.setIconSize(QtCore.QSize(30, 30))
         self.darkmode_button.setObjectName("darkmode_button")
         self.horizontalLayout.addWidget(self.darkmode_button)
@@ -399,7 +402,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Bionic"))
         self.addbook_label.setText(_translate("MainWindow", "Add a book by clicking \"Add\" button"))
         self.listBooks.setToolTip(_translate("MainWindow", "Add a book by clicking \"Add\" button"))
         self.add_button.setText(_translate("MainWindow", "Add"))

@@ -162,6 +162,9 @@ class Ui_ResultForm(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         ResultForm.setPalette(palette)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        ResultForm.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(ResultForm)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -211,5 +214,6 @@ class Ui_ResultForm(object):
 
     def retranslateUi(self, ResultForm):
         _translate = QtCore.QCoreApplication.translate
-        ResultForm.setWindowTitle(_translate("ResultForm", "Form"))
+        ResultForm.setWindowTitle(_translate("ResultForm", "Bionic - result"))
         self.back_button.setText(_translate("ResultForm", "Back"))
+import res_rc

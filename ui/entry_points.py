@@ -162,6 +162,9 @@ class Ui_entryPointsView(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         entryPointsView.setPalette(palette)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        entryPointsView.setWindowIcon(icon)
         self.horizontalLayout = QtWidgets.QHBoxLayout(entryPointsView)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.treePoints = QtWidgets.QTreeView(entryPointsView)
@@ -200,4 +203,5 @@ class Ui_entryPointsView(object):
 
     def retranslateUi(self, entryPointsView):
         _translate = QtCore.QCoreApplication.translate
-        entryPointsView.setWindowTitle(_translate("entryPointsView", "Form"))
+        entryPointsView.setWindowTitle(_translate("entryPointsView", "Bionic - entry points"))
+import res_rc

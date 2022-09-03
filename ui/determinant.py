@@ -162,6 +162,9 @@ class Ui_Determinant(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         Determinant.setPalette(palette)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Determinant.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(Determinant)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -315,6 +318,7 @@ class Ui_Determinant(object):
 
     def retranslateUi(self, Determinant):
         _translate = QtCore.QCoreApplication.translate
-        Determinant.setWindowTitle(_translate("Determinant", "Form"))
+        Determinant.setWindowTitle(_translate("Determinant", "Bionic"))
         self.back_button.setText(_translate("Determinant", "Back"))
         self.next_button.setText(_translate("Determinant", "Next"))
+import res_rc

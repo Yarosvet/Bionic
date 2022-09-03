@@ -16,6 +16,8 @@ class Ui_SettingsForm(object):
         SettingsForm.setObjectName("SettingsForm")
         SettingsForm.setWindowModality(QtCore.Qt.ApplicationModal)
         SettingsForm.resize(600, 400)
+        SettingsForm.setMinimumSize(QtCore.QSize(600, 400))
+        SettingsForm.setMaximumSize(QtCore.QSize(600, 400))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -162,6 +164,9 @@ class Ui_SettingsForm(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         SettingsForm.setPalette(palette)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        SettingsForm.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(SettingsForm)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(SettingsForm)
@@ -215,3 +220,4 @@ class Ui_SettingsForm(object):
         SettingsForm.setWindowTitle(_translate("SettingsForm", "bionic - Settings"))
         self.label.setText(_translate("SettingsForm", "Books repository - rels.json"))
         self.save_button.setText(_translate("SettingsForm", "Save"))
+import res_rc

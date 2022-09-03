@@ -459,7 +459,11 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Bionic</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../res.qrc">
+    <normaloff>:/img/img/b_logo.png</normaloff>:/img/img/b_logo.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -728,6 +732,8 @@ width: 70px;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
  <connections/>
 </ui>

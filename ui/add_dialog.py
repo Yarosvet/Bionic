@@ -163,6 +163,9 @@ class Ui_AddDialog(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         AddDialog.setPalette(palette)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        AddDialog.setWindowIcon(icon)
         self.verticalLayout = QtWidgets.QVBoxLayout(AddDialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -273,8 +276,9 @@ class Ui_AddDialog(object):
 
     def retranslateUi(self, AddDialog):
         _translate = QtCore.QCoreApplication.translate
-        AddDialog.setWindowTitle(_translate("AddDialog", "Dialog"))
+        AddDialog.setWindowTitle(_translate("AddDialog", "Add book"))
         self.label.setText(_translate("AddDialog", "Select file *.tar.gz"))
         self.select_button.setText(_translate("AddDialog", "Select"))
         self.label_2.setText(_translate("AddDialog", "Get from GitHub"))
         self.get_button.setText(_translate("AddDialog", "Get"))
+import res_rc

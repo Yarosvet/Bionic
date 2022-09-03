@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="img">
+    <file>img/b_logo.png</file>
     <file>img/book.png</file>
     <file>img/search.png</file>
     <file>img/logo.png</file>

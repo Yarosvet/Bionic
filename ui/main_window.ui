@@ -474,7 +474,11 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Bionic</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../res.qrc">
+    <normaloff>:/img/img/b_logo.png</normaloff>:/img/img/b_logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="enabled">
@@ -1036,7 +1040,6 @@ width: 100px;
   </widget>
  </widget>
  <resources>
-  <include location="../res.qrc"/>
   <include location="../res.qrc"/>
  </resources>
  <connections/>

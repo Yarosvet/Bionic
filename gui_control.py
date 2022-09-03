@@ -192,7 +192,6 @@ class AddDialog(QDialog):
     def get_clicked(self):
         self.ui.listbooks.setCursor(QCursor(Qt.WaitCursor))
         try:
-            a = self.config["rels"]
             req = requests.get(self.config["rels"])
             if req.status_code == 200:
                 self.github_rels = json.loads(req.content)
@@ -460,6 +459,9 @@ class SettingsForm(QWidget):
         self.ui.save_button.clicked.connect(self.save_clicked)
 
     def showEvent(self, a0) -> None:
+        a0.accept()
+        self.move(self.parent_window.frameGeometry().center().x() - self.frameGeometry().width() / 2,
+                  self.parent_window.frameGeometry().center().y() - self.frameGeometry().height() / 2)
         self.ui.rels_lineedit.setText(self.config["rels"])
 
     def save_clicked(self):

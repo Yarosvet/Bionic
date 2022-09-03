@@ -13,6 +13,18 @@
     <height>400</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>400</height>
+   </size>
+  </property>
   <property name="palette">
    <palette>
     <active>
@@ -458,6 +470,10 @@
   <property name="windowTitle">
    <string>bionic - Settings</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../res.qrc">
+    <normaloff>:/img/img/b_logo.png</normaloff>:/img/img/b_logo.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="label">
@@ -556,6 +572,8 @@ width: 80px;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
  <connections/>
 </ui>
