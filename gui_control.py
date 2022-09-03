@@ -7,6 +7,7 @@ from ui.itembook_widget import Ui_itemWidget
 from ui.entry_points import Ui_entryPointsView
 from ui.determinant import Ui_Determinant
 from ui.result import Ui_ResultForm
+from ui.settings import Ui_SettingsForm
 import requests
 import json
 from tarfile import TarFile
@@ -24,8 +25,9 @@ def check_by_filter(text, filter_expression="") -> bool:
 
 
 class MainWin(QMainWindow):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
+        self.config = config
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
         self.ui = Ui_MainWindow()
@@ -33,10 +35,12 @@ class MainWin(QMainWindow):
         self.determWidget = DetermWidget(self)
         self.entry_tree_widget = EntryPointsView(self, self.determWidget)
         self.entry_tree_widget.set_on_select(self.close)
-        self.addDialog = AddDialog(self, self.update_list_books)
+        self.addDialog = AddDialog(self, self.config, onclose_func=self.update_list_books)
+        self.settingsWindow = SettingsForm(self, self.config)
         self.ui.add_button.clicked.connect(self.add_clicked)
         self.ui.listBooks.doubleClicked.connect(self.book_selected)
         self.ui.searchfield.textChanged.connect(self.search_update)
+        self.ui.settings_button.clicked.connect(self.settings_clicked)
         self.update_list_books()
 
     def showEvent(self, a0) -> None:
@@ -113,6 +117,9 @@ class MainWin(QMainWindow):
         except Exception as exc:
             self.error_dialog.showMessage(str(exc))
 
+    def settings_clicked(self):
+        self.settingsWindow.show()
+
 
 def install_book(tar_path, book_id=None):
     if not os.path.exists("books/"):
@@ -150,9 +157,10 @@ def find_stage_by_id(stages, s_id: int):
 
 
 class AddDialog(QDialog):
-    def __init__(self, parent, onclose_func=None):
+    def __init__(self, parent, config, onclose_func=None):
         super().__init__(parent)
         self.onclose_func = onclose_func
+        self.config = config
         self.github_rels = None
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
@@ -184,7 +192,8 @@ class AddDialog(QDialog):
     def get_clicked(self):
         self.ui.listbooks.setCursor(QCursor(Qt.WaitCursor))
         try:
-            req = requests.get("https://raw.githubusercontent.com/Yarosvet/Bionic_books/master/rels.json")
+            a = self.config["rels"]
+            req = requests.get(self.config["rels"])
             if req.status_code == 200:
                 self.github_rels = json.loads(req.content)
                 self.github_rels["books"] = sorted(self.github_rels["books"], key=lambda x: x["id"])
@@ -378,15 +387,15 @@ class DetermWidget(QWidget):
                 self.ui.caption_b.setText(self.current_stage["variants"][1]["caption"])
                 self.ui.pic_a.setPixmap(QPixmap(None))
                 if self.current_stage["variants"][0]["picture"] is not None:
-                    pic = QPixmap(
-                        os.path.join(self.book_path, self.current_stage["variants"][0]["picture"])).scaledToWidth(
-                        500)
+                    pic = QPixmap(os.path.join(self.book_path, self.current_stage["variants"][0]["picture"]))
+                    if pic.width() > 500:
+                        pic = pic.scaledToWidth(500)
                     self.ui.pic_a.setPixmap(pic)
                 self.ui.pic_b.setPixmap(QPixmap(None))
                 if self.current_stage["variants"][1]["picture"] is not None:
-                    pic = QPixmap(
-                        os.path.join(self.book_path, self.current_stage["variants"][1]["picture"])).scaledToWidth(
-                        500)
+                    pic = QPixmap(os.path.join(self.book_path, self.current_stage["variants"][1]["picture"]))
+                    if pic.width() > 500:
+                        pic = pic.scaledToWidth(500)
                     self.ui.pic_b.setPixmap(pic)
             else:
                 self.res_window.set_end_stage(self.book_path, stage_id)
@@ -439,3 +448,20 @@ class ResultWindow(QWidget):
         if not self.go_back_flag:
             self.parent_window.close()
             self.base_window.show()
+
+
+class SettingsForm(QWidget):
+    def __init__(self, parent, config):
+        super().__init__()
+        self.parent_window = parent
+        self.config = config
+        self.ui = Ui_SettingsForm()
+        self.ui.setupUi(self)
+        self.ui.save_button.clicked.connect(self.save_clicked)
+
+    def showEvent(self, a0) -> None:
+        self.ui.rels_lineedit.setText(self.config["rels"])
+
+    def save_clicked(self):
+        self.config["rels"] = self.ui.rels_lineedit.text()
+        self.config.save()
