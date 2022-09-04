@@ -7,4 +7,7 @@
     <file>img/darkmode.png</file>
     <file>img/settings.png</file>
   </qresource>
+  <qresource prefix="fonts">
+    <file>fonts/DejaVuSans.ttf</file>
+  </qresource>
 </RCC>

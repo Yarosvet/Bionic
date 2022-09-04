@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QErrorMessage, QListWidgetItem, QDesktopWidget
 from PyQt5.QtCore import QModelIndex
+from PyQt5.QtGui import QFontDatabase
 import json
 import os
 

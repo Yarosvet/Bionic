@@ -166,15 +166,6 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="PlaceholderText">
-      <brush brushstyle="SolidPattern">
-       <color alpha="128">
-        <red>0</red>
-        <green>0</green>
-        <blue>0</blue>
-       </color>
-      </brush>
-     </colorrole>
     </active>
     <inactive>
      <colorrole role="WindowText">
@@ -306,15 +297,6 @@
      <colorrole role="ToolTipText">
       <brush brushstyle="SolidPattern">
        <color alpha="255">
-        <red>0</red>
-        <green>0</green>
-        <blue>0</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="PlaceholderText">
-      <brush brushstyle="SolidPattern">
-       <color alpha="128">
         <red>0</red>
         <green>0</green>
         <blue>0</blue>
@@ -458,17 +440,13 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="PlaceholderText">
-      <brush brushstyle="SolidPattern">
-       <color alpha="128">
-        <red>0</red>
-        <green>0</green>
-        <blue>0</blue>
-       </color>
-      </brush>
-     </colorrole>
     </disabled>
    </palette>
+  </property>
+  <property name="font">
+   <font>
+    <family>MS Shell Dlg 2</family>
+   </font>
   </property>
   <property name="acceptDrops">
    <bool>true</bool>
@@ -583,6 +561,11 @@
               <height>22</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>DejaVu Sans</family>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">border-style: solid;
 border-radius: 5px;
@@ -624,6 +607,8 @@ padding-bottom: 1px;</string>
         </property>
         <property name="font">
          <font>
+          <family>DejaVu Sans</family>
+          <pointsize>10</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
@@ -863,15 +848,6 @@ background: transparent;</string>
              </color>
             </brush>
            </colorrole>
-           <colorrole role="PlaceholderText">
-            <brush brushstyle="NoBrush">
-             <color alpha="128">
-              <red>255</red>
-              <green>255</green>
-              <blue>255</blue>
-             </color>
-            </brush>
-           </colorrole>
           </active>
           <inactive>
            <colorrole role="WindowText">
@@ -925,15 +901,6 @@ background: transparent;</string>
               <red>53</red>
               <green>132</green>
               <blue>228</blue>
-             </color>
-            </brush>
-           </colorrole>
-           <colorrole role="PlaceholderText">
-            <brush brushstyle="NoBrush">
-             <color alpha="128">
-              <red>255</red>
-              <green>255</green>
-              <blue>255</blue>
              </color>
             </brush>
            </colorrole>
@@ -993,20 +960,13 @@ background: transparent;</string>
              </color>
             </brush>
            </colorrole>
-           <colorrole role="PlaceholderText">
-            <brush brushstyle="NoBrush">
-             <color alpha="128">
-              <red>255</red>
-              <green>255</green>
-              <blue>255</blue>
-             </color>
-            </brush>
-           </colorrole>
           </disabled>
          </palette>
         </property>
         <property name="font">
          <font>
+          <family>DejaVu Sans</family>
+          <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
           <stylestrategy>PreferAntialias</stylestrategy>
@@ -1018,13 +978,11 @@ background: transparent;</string>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(53, 132, 228);
 color: rgb(255, 255, 255);
-border-style: solid;
-border-width: 2px;
+border: 2px solid rgb(53, 132, 228);
 border-radius: 15px;
-border-color: rgb(53, 132, 228);
 padding: 4px;
 width: 100px;
-</string>
+min-height: 18px;</string>
         </property>
         <property name="text">
          <string>Add</string>

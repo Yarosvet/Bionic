@@ -68,9 +68,6 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ToolTipText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
@@ -116,9 +113,6 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ToolTipText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
         brush = QtGui.QBrush(QtGui.QColor(123, 122, 122))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
@@ -164,10 +158,10 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         MainWindow.setPalette(palette)
+        font = QtGui.QFont()
+        font.setFamily("MS Shell Dlg 2")
+        MainWindow.setFont(font)
         MainWindow.setAcceptDrops(True)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -215,6 +209,9 @@ class Ui_MainWindow(object):
         self.searchfield.setSizePolicy(sizePolicy)
         self.searchfield.setMinimumSize(QtCore.QSize(170, 22))
         self.searchfield.setMaximumSize(QtCore.QSize(16777215, 22))
+        font = QtGui.QFont()
+        font.setFamily("DejaVu Sans")
+        self.searchfield.setFont(font)
         self.searchfield.setStyleSheet("border-style: solid;\n"
 "border-radius: 5px;\n"
 "border-width: 2px;\n"
@@ -242,6 +239,8 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.addbook_label.sizePolicy().hasHeightForWidth())
         self.addbook_label.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
+        font.setFamily("DejaVu Sans")
+        font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
         self.addbook_label.setFont(font)
@@ -330,9 +329,6 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(53, 132, 228))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
@@ -351,9 +347,6 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(53, 132, 228))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
@@ -372,11 +365,10 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(53, 132, 228))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         self.add_button.setPalette(palette)
         font = QtGui.QFont()
+        font.setFamily("DejaVu Sans")
+        font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
         font.setStyleStrategy(QtGui.QFont.PreferAntialias)
@@ -384,13 +376,11 @@ class Ui_MainWindow(object):
         self.add_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.add_button.setStyleSheet("background-color: rgb(53, 132, 228);\n"
 "color: rgb(255, 255, 255);\n"
-"border-style: solid;\n"
-"border-width: 2px;\n"
+"border: 2px solid rgb(53, 132, 228);\n"
 "border-radius: 15px;\n"
-"border-color: rgb(53, 132, 228);\n"
 "padding: 4px;\n"
 "width: 100px;\n"
-"")
+"min-height: 18px;")
         self.add_button.setDefault(False)
         self.add_button.setObjectName("add_button")
         self.horizontalLayout.addWidget(self.add_button)

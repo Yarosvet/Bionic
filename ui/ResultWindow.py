@@ -23,6 +23,7 @@ class ResultWindow(QWidget):
         a0.accept()
         self.move(self.parent_window.frameGeometry().center().x() - self.frameGeometry().width() / 2,
                   self.parent_window.frameGeometry().center().y() - self.frameGeometry().height() / 2)
+        self.parent_window.setVisible(False)
 
     def set_end_stage(self, book_path, stage_id):
         try:
@@ -32,7 +33,10 @@ class ResultWindow(QWidget):
             stage = find_stage_by_id(all_stages, stage_id)
             self.ui.res_text.setText(stage["text"])
             if stage["result_picture"] is not None:
-                pic = QPixmap(os.path.join(book_path, stage["result_picture"])).scaledToWidth(500)
+                
+                pic = QPixmap(os.path.join(book_path, stage["result_picture"]))
+                if pic.width() > 500:
+                    pic = pic.scaledToWidth(500)                
                 self.ui.res_picture.setPixmap(pic)
         except Exception as exc:
             self.error_dialog.showMessage(str(exc))
@@ -44,6 +48,8 @@ class ResultWindow(QWidget):
 
     def closeEvent(self, a0) -> None:
         a0.accept()
+        self.parent_window.setVisible(True)
         if not self.go_back_flag:
             self.parent_window.close()
             self.base_window.show()
+            
