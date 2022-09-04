@@ -477,7 +477,7 @@
    <string>Bionic</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res.qrc">
+   <iconset resource="../../res.qrc">
     <normaloff>:/img/img/b_logo.png</normaloff>:/img/img/b_logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -517,7 +517,7 @@
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="../res.qrc">:/img/img/logo.png</pixmap>
+         <pixmap resource="../../res.qrc">:/img/img/logo.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>false</bool>
@@ -734,7 +734,7 @@ background: transparent;</string>
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../res.qrc">
+         <iconset resource="../../res.qrc">
           <normaloff>:/img/img/settings.png</normaloff>:/img/img/settings.png</iconset>
         </property>
         <property name="iconSize">
@@ -774,7 +774,7 @@ background: transparent;</string>
          <string/>
         </property>
         <property name="icon">
-         <iconset resource="../res.qrc">
+         <iconset resource="../../res.qrc">
           <normaloff>:/img/img/darkmode.png</normaloff>:/img/img/darkmode.png</iconset>
         </property>
         <property name="iconSize">
@@ -1040,7 +1040,8 @@ width: 100px;
   </widget>
  </widget>
  <resources>
-  <include location="../res.qrc"/>
+  <include location="../../res.qrc"/>
+  <include location="../../res.qrc"/>
  </resources>
  <connections/>
 </ui>
