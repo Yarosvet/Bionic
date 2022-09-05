@@ -5,13 +5,15 @@ import os
 
 from .tools import find_stage_by_id
 from .qt_generated.result import Ui_ResultForm
+from .qt_generated.dark.dark_result import Ui_DarkResultForm
 
 
 class ResultWindow(QWidget):
-    def __init__(self, parent, base_window):
+    def __init__(self, parent, config, base_window):
         super().__init__()
         self.parent_window = parent
-        self.ui = Ui_ResultForm()
+        self.config = config
+        self.ui = Ui_ResultForm() if not int(self.config["dark_mode"]) else Ui_DarkResultForm()
         self.ui.setupUi(self)
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
@@ -33,10 +35,10 @@ class ResultWindow(QWidget):
             stage = find_stage_by_id(all_stages, stage_id)
             self.ui.res_text.setText(stage["text"])
             if stage["result_picture"] is not None:
-                
+
                 pic = QPixmap(os.path.join(book_path, stage["result_picture"]))
                 if pic.width() > 500:
-                    pic = pic.scaledToWidth(500)                
+                    pic = pic.scaledToWidth(500)
                 self.ui.res_picture.setPixmap(pic)
         except Exception as exc:
             self.error_dialog.showMessage(str(exc))
@@ -52,4 +54,3 @@ class ResultWindow(QWidget):
         if not self.go_back_flag:
             self.parent_window.close()
             self.base_window.show()
-            

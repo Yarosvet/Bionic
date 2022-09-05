@@ -7,6 +7,7 @@ import os
 
 from .tools import install_book
 from .qt_generated.add_dialog import Ui_AddDialog
+from .qt_generated.dark.dark_add_dialog import Ui_DarkAddDialog
 
 
 class AddDialog(QDialog):
@@ -17,7 +18,7 @@ class AddDialog(QDialog):
         self.web_rels = None
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
-        self.ui = Ui_AddDialog()
+        self.ui = Ui_AddDialog() if not int(self.config["dark_mode"]) else Ui_DarkAddDialog()
         self.ui.setupUi(self)
         self.ui.select_button.clicked.connect(self.select_clicked)
         self.ui.get_button.clicked.connect(self.get_clicked)

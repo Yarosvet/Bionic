@@ -5,15 +5,17 @@ import os
 
 from .tools import find_point_by_id
 from .qt_generated.entry_points import Ui_entryPointsView
+from .qt_generated.dark.dark_entry_points import Ui_DarkEntryPointsView
 
 
 class EntryPointsView(QWidget):
-    def __init__(self, parent, determ_widget):
+    def __init__(self, parent, config, determ_widget):
         super().__init__()
         self.parent_window = parent
+        self.config = config
         self.on_select_func = None
         self.determ_widget = determ_widget
-        self.ui = Ui_entryPointsView()
+        self.ui = Ui_entryPointsView() if not int(self.config["dark_mode"]) else Ui_DarkEntryPointsView()
         self.ui.setupUi(self)
         self.book = None
         self.book_path = None

@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import QMainWindow, QErrorMessage, QListWidgetItem, QDesktopWidget
 from PyQt5.QtCore import QModelIndex
-from PyQt5.QtGui import QFontDatabase
 import json
 import os
 
 from .qt_generated.main_window import Ui_MainWindow
+from .qt_generated.dark.dark_main_window import Ui_DarkMainWindow
 from .tools import install_book, check_by_filter
 from .BookItemWidget import BookItemWidget
 from .DeterminantWindow import DetermWidget
@@ -19,10 +19,10 @@ class MainWin(QMainWindow):
         self.config = config
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_MainWindow() if not int(self.config["dark_mode"]) else Ui_DarkMainWindow()
         self.ui.setupUi(self)
-        self.determWidget = DetermWidget(self)
-        self.entry_tree_widget = EntryPointsView(self, self.determWidget)
+        self.determWidget = DetermWidget(self, self.config)
+        self.entry_tree_widget = EntryPointsView(self, self.config, self.determWidget)
         self.entry_tree_widget.set_on_select(self.close)
         self.addDialog = AddDialog(self, self.config, onclose_func=self.update_list_books)
         self.settingsWindow = SettingsForm(self, self.config)
@@ -30,6 +30,7 @@ class MainWin(QMainWindow):
         self.ui.listBooks.doubleClicked.connect(self.book_selected)
         self.ui.searchfield.textChanged.connect(self.search_update)
         self.ui.settings_button.clicked.connect(self.settings_clicked)
+        self.ui.darkmode_button.clicked.connect(self.dark_mode_clicked)
         self.update_list_books()
 
     def showEvent(self, a0) -> None:
@@ -85,7 +86,7 @@ class MainWin(QMainWindow):
                     if book["cover"] is not None:
                         cover = os.path.join(book_path, book["cover"])
                     item = QListWidgetItem(self.ui.listBooks)
-                    item_widget = BookItemWidget(parent=self, cover_path=cover, name=book["name"],
+                    item_widget = BookItemWidget(parent=self, config=self.config, cover_path=cover, name=book["name"],
                                                  date=book["translation_date"], book_path=book_path)
                     item.setSizeHint(item_widget.size())
                     self.ui.listBooks.addItem(item)
@@ -107,3 +108,11 @@ class MainWin(QMainWindow):
 
     def settings_clicked(self):
         self.settingsWindow.show()
+
+    def dark_mode_clicked(self):
+        self.config["dark_mode"] = "1" if not int(self.config["dark_mode"]) else "0"
+        self.config.save()
+        self.close()
+        self.__init__(self.config)
+        self.show()
+        self.update()

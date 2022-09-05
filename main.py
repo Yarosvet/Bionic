@@ -5,6 +5,7 @@ from config import Config
 
 if __name__ == "__main__":
     app = QApplication([])
+    app.setStyle('Fusion')
     QFontDatabase.addApplicationFont(":/fonts/fonts/DejaVuSans.ttf") 
     cf = Config()
     main_window = MainWin(config=cf)

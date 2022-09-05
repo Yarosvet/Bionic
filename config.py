@@ -1,7 +1,8 @@
 import configparser
 from os.path import exists
 
-default_config = {"rels": "https://raw.githubusercontent.com/Yarosvet/Bionic_books/master/rels.json"}
+default_config = {"rels": "https://raw.githubusercontent.com/Yarosvet/Bionic_books/master/rels.json",
+                  "dark_mode": False}
 
 
 class Config:

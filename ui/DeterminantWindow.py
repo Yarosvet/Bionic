@@ -5,16 +5,18 @@ import os
 
 from .tools import find_stage_by_id
 from .qt_generated.determinant import Ui_Determinant
+from .qt_generated.dark.dark_determinant import Ui_DarkDeterminant
 from .ResultWindow import ResultWindow
 
 
 class DetermWidget(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, config):
         super().__init__()
         self.parent_window = parent
-        self.ui = Ui_Determinant()
+        self.config = config
+        self.ui = Ui_Determinant() if not int(self.config["dark_mode"]) else Ui_DarkDeterminant()
         self.ui.setupUi(self)
-        self.res_window = ResultWindow(self, parent)
+        self.res_window = ResultWindow(self, self.config, self.parent_window)
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
         self.book_path = None

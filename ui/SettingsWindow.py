@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget
 
 from .qt_generated.settings import Ui_SettingsForm
+from .qt_generated.dark.dark_settings import Ui_DarkSettingsForm
 
 
 class SettingsForm(QWidget):
@@ -8,7 +9,7 @@ class SettingsForm(QWidget):
         super().__init__()
         self.parent_window = parent
         self.config = config
-        self.ui = Ui_SettingsForm()
+        self.ui = Ui_SettingsForm() if not int(self.config["dark_mode"]) else Ui_DarkSettingsForm()
         self.ui.setupUi(self)
         self.ui.save_button.clicked.connect(self.save_clicked)
 
