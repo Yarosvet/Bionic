@@ -30,13 +30,13 @@ class ResultWindow(QWidget):
     def set_end_stage(self, book_path, stage_id):
         try:
             with open(os.path.join(book_path, "book.json"), 'r') as fb:
-                with open(os.path.join(book_path, json.load(fb)["stages"]), 'r') as fs:
-                    all_stages = json.load(fs)
-            stage = find_stage_by_id(all_stages, stage_id)
-            self.ui.res_text.setText(stage["text"])
-            if stage["result_picture"] is not None:
+                with open(os.path.join(book_path, json.load(fb)["endings"]), 'r') as fs:
+                    all_endings = json.load(fs)
+            ending = find_stage_by_id(all_endings, stage_id)
+            self.ui.res_text.setText(ending["text"])
+            if ending["result_picture"] is not None:
 
-                pic = QPixmap(os.path.join(book_path, stage["result_picture"]))
+                pic = QPixmap(os.path.join(book_path, ending["result_picture"]))
                 if pic.width() > 500:
                     pic = pic.scaledToWidth(500)
                 self.ui.res_picture.setPixmap(pic)
