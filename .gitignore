@@ -1,3 +1,6 @@
 /books/
 /temp/
 /config.ini
+/build/
+/dist/
+/*.spec
