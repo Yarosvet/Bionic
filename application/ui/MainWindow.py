@@ -102,7 +102,7 @@ class MainWin(QMainWindow):
         try:
             self.entry_tree_widget.show()
             book_path = self.ui.listBooks.itemWidget(self.ui.listBooks.item(index.row())).book_path
-            self.entry_tree_widget.set_book(book_path=book_path)
+            self.entry_tree_widget.open_book(book_path=book_path)
         except Exception as exc:
             self.error_dialog.showMessage(str(exc))
 

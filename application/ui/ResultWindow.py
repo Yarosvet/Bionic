@@ -1,11 +1,8 @@
 from PyQt5.QtWidgets import QErrorMessage, QWidget
-from PyQt5.QtGui import QPixmap
-import json
-import os
 
-from .tools import find_stage_by_id
 from .qt_generated.result import Ui_ResultForm
 from .qt_generated.dark.dark_result import Ui_DarkResultForm
+from ..book import Ending
 
 
 class ResultWindow(QWidget):
@@ -23,23 +20,13 @@ class ResultWindow(QWidget):
 
     def showEvent(self, a0) -> None:
         a0.accept()
-        self.move(self.parent_window.frameGeometry().center().x() - self.frameGeometry().width() / 2,
-                  self.parent_window.frameGeometry().center().y() - self.frameGeometry().height() / 2)
+        self.move(int(self.parent_window.frameGeometry().center().x() - self.frameGeometry().width() / 2),
+                  int(self.parent_window.frameGeometry().center().y() - self.frameGeometry().height() / 2))
         self.parent_window.setVisible(False)
 
-    def set_end_stage(self, book_path, stage_id):
+    def set_end_stage(self, ending: Ending):
         try:
-            with open(os.path.join(book_path, "book.json"), 'r') as fb:
-                with open(os.path.join(book_path, json.load(fb)["endings"]), 'r') as fs:
-                    all_endings = json.load(fs)
-            ending = find_stage_by_id(all_endings, stage_id)
-            self.ui.res_text.setText(ending["text"])
-            if ending["result_picture"] is not None:
-
-                pic = QPixmap(os.path.join(book_path, ending["result_picture"]))
-                if pic.width() > 500:
-                    pic = pic.scaledToWidth(500)
-                self.ui.res_picture.setPixmap(pic)
+            self.ui.res_text.setText(ending.document)
         except Exception as exc:
             self.error_dialog.showMessage(str(exc))
 
