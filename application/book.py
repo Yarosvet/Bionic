@@ -68,9 +68,9 @@ class Book:
             t_doc = f.read()
         with open(os.path.join(self.stage_documents, s['antithesis']['document']), 'r') as f:
             at_doc = f.read()
-        thesis = Thesis(at_doc, target_type=s['thesis']['target']['type'], target_id=s['thesis']['target']['id'],
+        thesis = Thesis(t_doc, target_type=s['thesis']['target']['type'], target_id=s['thesis']['target']['id'],
                         book=self)
-        antithesis = Thesis(t_doc, target_type=s['antithesis']['target']['type'],
+        antithesis = Thesis(at_doc, target_type=s['antithesis']['target']['type'],
                             target_id=s['antithesis']['target']['id'], book=self)
         return Stage(book=self, id=s['id'], thesis=thesis, antithesis=antithesis)
 
