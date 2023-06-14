@@ -31,8 +31,14 @@ QLabel#point_name {
 	color: black;
 }
 
-QLabel#date_label, QLabel#cover_label, QLabel#name_label{
+QLabel#date_label, QLabel#name_label{
 	background: transparent;
+}
+
+QLabel#cover_label{
+	background: #f3f6ff;
+	border: 1px solid transparent;
+	border-radius: 7px;
 }
 
 QLineEdit {

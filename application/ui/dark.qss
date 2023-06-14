@@ -35,6 +35,12 @@ QLabel#date_label, QLabel#cover_label, QLabel#name_label{
 	background: transparent;
 }
 
+QLabel#cover_label{
+	background: #737373;
+	border: 1px solid transparent;
+	border-radius: 7px;
+}
+
 QLineEdit {
 	border-style: solid;
 	border-radius: 5px;
