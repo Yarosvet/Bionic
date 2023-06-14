@@ -52,7 +52,7 @@ class Book:
             json_book = json.load(fb)
             self.id = json_book['id']
             self.name = json_book['name']
-            self.cover = os.path.abspath(json_book['cover'])
+            self.cover = os.path.abspath(os.path.join(path, json_book['cover']))
             self.translation_date = json_book['translation_date']
             with open(os.path.join(self.path, json_book['stages']), 'r') as fs:
                 self.stages_map = {el['id']: el for el in json.load(fs)}

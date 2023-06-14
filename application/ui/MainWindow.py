@@ -10,6 +10,7 @@ from .DeterminantWindow import DetermWidget
 from .EntryPointsWindow import EntryPointsView
 from .AddDialog import AddDialog
 from .SettingsWindow import SettingsForm
+from ..book import Book
 
 
 class MainWin(QMainWindow):
@@ -78,16 +79,15 @@ class MainWin(QMainWindow):
             book_path = os.path.join("books/", el)
             try:
                 if os.path.isdir(book_path) and os.path.exists(os.path.join(book_path, "book.json")):
-                    with open(os.path.join(book_path, "book.json"), 'r') as f:
-                        book = json.load(f)
-                    if not check_by_filter(book["name"], filter_expression=filter_expression):
+                    book = Book(book_path)
+                    if not check_by_filter(book.name, filter_expression=filter_expression):
                         continue
                     cover = ":/img/img/book.png"
-                    if book["cover"] is not None:
-                        cover = os.path.join(book_path, book["cover"])
+                    if book.cover is not None:
+                        cover = book.cover
                     item = QListWidgetItem(self.ui.listBooks)
-                    item_widget = BookItemWidget(parent=self, config=self.config, cover_path=cover, name=book["name"],
-                                                 date=book["translation_date"], book_path=book_path)
+                    item_widget = BookItemWidget(parent=self, config=self.config, cover_path=cover, name=book.name,
+                                                 date=book.translation_date, book_path=book_path)
                     item.setSizeHint(item_widget.size())
                     self.ui.listBooks.addItem(item)
                     self.ui.listBooks.setItemWidget(item, item_widget)
