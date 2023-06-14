@@ -3,7 +3,6 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 import os
 
 from .qt_generated.entry_points import Ui_entryPointsView
-from .qt_generated.dark.dark_entry_points import Ui_DarkEntryPointsView
 from ..book import Book
 
 
@@ -14,7 +13,7 @@ class EntryPointsView(QWidget):
         self.config = config
         self.on_select_func = None
         self.determ_widget = determ_widget
-        self.ui = Ui_entryPointsView() if not int(self.config["dark_mode"]) else Ui_DarkEntryPointsView()
+        self.ui = Ui_entryPointsView()
         self.ui.setupUi(self)
         self.book = None
         self.error_dialog = QErrorMessage()

@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QErrorMessage, QWidget
 
 from .qt_generated.result import Ui_ResultForm
-from .qt_generated.dark.dark_result import Ui_DarkResultForm
 from ..book import Ending
 
 
@@ -10,7 +9,7 @@ class ResultWindow(QWidget):
         super().__init__()
         self.parent_window = parent
         self.config = config
-        self.ui = Ui_ResultForm() if not int(self.config["dark_mode"]) else Ui_DarkResultForm()
+        self.ui = Ui_ResultForm()
         self.ui.setupUi(self)
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)

@@ -4,7 +4,6 @@ import json
 import os
 
 from .qt_generated.main_window import Ui_MainWindow
-from .qt_generated.dark.dark_main_window import Ui_DarkMainWindow
 from .tools import install_book, check_by_filter
 from .BookItemWidget import BookItemWidget
 from .DeterminantWindow import DetermWidget
@@ -14,12 +13,13 @@ from .SettingsWindow import SettingsForm
 
 
 class MainWin(QMainWindow):
-    def __init__(self, config):
+    def __init__(self, config, theme_changer_func):
         super().__init__()
         self.config = config
+        self.theme_changer_func = theme_changer_func
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
-        self.ui = Ui_MainWindow() if not int(self.config["dark_mode"]) else Ui_DarkMainWindow()
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.determWidget = DetermWidget(self, self.config)
         self.entry_tree_widget = EntryPointsView(self, self.config, self.determWidget)
@@ -110,9 +110,4 @@ class MainWin(QMainWindow):
         self.settingsWindow.show()
 
     def dark_mode_clicked(self):
-        self.config["dark_mode"] = "1" if not int(self.config["dark_mode"]) else "0"
-        self.config.save()
-        self.close()
-        self.__init__(self.config)
-        self.show()
-        self.update()
+        self.theme_changer_func()

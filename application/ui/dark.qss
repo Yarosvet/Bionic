@@ -1,0 +1,122 @@
+QMainWindow, QWidget {
+	background-color: #353535;
+}
+
+QPushButton {
+	background-color: #353535;
+	color: white;
+	border: 2px solid rgb(53, 132, 228);
+	border-radius: 15px;
+	padding: 4px;
+	width: 100px;
+	min-height: 18px;
+}
+
+QPushButton#darkmode_button, QPushButton#settings_button {
+	border: none;
+	background: transparent;
+	width: none;
+}
+
+QListWidget, QListView {
+    background-color: #5e5c64;
+    color: white;
+}
+
+QLabel {
+	color: white;
+}
+
+QLabel#point_name {
+	color: white;
+}
+
+QLabel#date_label, QLabel#cover_label, QLabel#name_label{
+	background: transparent;
+}
+
+QLineEdit {
+	border-style: solid;
+	border-radius: 5px;
+	border-width: 2px;
+	border-color: black;
+	background-color: #5e5c64;
+	color: white;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+QLineEdit#searchfield {
+	image: url(:/img/img/search_dark.png);
+	image-position: right;
+}
+
+QFrame#line {
+	color: white;
+}
+
+QTreeView {
+	color: white;
+	background-color: #5e5c64;
+}
+
+QTreeView > QHeaderView::section {
+	color: white;
+	background-color: #5e5c64;
+}
+
+QTextBrowser {
+	color: white;
+	background-color: #5e5c64;
+}
+
+QRadioButton {
+    background-color: transparent;
+    color: white;
+}
+
+QRadioButton::indicator {
+    width: 13px;
+    height: 13px;
+    border-radius: 8px;
+}
+
+QRadioButton::indicator:checked {
+    background-color: rgb(53, 132, 228);
+    border:  2px solid white;
+}
+
+QRadioButton::indicator:unchecked {
+    background-color:	transparent;
+    border: 2px solid white;
+}
+
+QScrollBar {
+    background-color: #353535;
+    border: 1px solid white;
+    border-radius: 4px;
+}
+
+QScrollBar:vertical {
+    width:                  8px;
+}
+
+QScrollBar:horizontal {
+    height:                 8px;
+}
+
+QScrollBar::handle {
+    background-color:       rgb(53, 132, 228);
+    border:                 1px solid rgb(53, 132, 228);
+    border-radius:          3px;
+}
+
+QScrollBar::add-line {
+      border:               none;
+      background:           none;
+}
+
+QScrollBar::sub-line {
+      border:               none;
+      background:           none;
+}

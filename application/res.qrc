@@ -8,6 +8,10 @@
     <file>img/darkmode.png</file>
     <file>img/settings.png</file>
   </qresource>
+  <qresource prefix="styles">
+    <file>ui/dark.qss</file>
+    <file>ui/light.qss</file>
+  </qresource>
   <qresource prefix="fonts">
     <file>fonts/DejaVuSans.ttf</file>
   </qresource>

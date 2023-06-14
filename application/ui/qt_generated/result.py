@@ -15,7 +15,7 @@ class Ui_ResultForm(object):
     def setupUi(self, ResultForm):
         ResultForm.setObjectName("ResultForm")
         ResultForm.setWindowModality(QtCore.Qt.ApplicationModal)
-        ResultForm.resize(711, 437)
+        ResultForm.resize(711, 436)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -156,6 +156,7 @@ class Ui_ResultForm(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/img/img/b_logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         ResultForm.setWindowIcon(icon)
+        ResultForm.setStyleSheet("")
         self.verticalLayout = QtWidgets.QVBoxLayout(ResultForm)
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
@@ -168,15 +169,7 @@ class Ui_ResultForm(object):
         font.setWeight(75)
         self.back_button.setFont(font)
         self.back_button.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.back_button.setStyleSheet("background-color: rgb(53, 132, 228);\n"
-"color: rgb(255, 255, 255);\n"
-"border-style: solid;\n"
-"border-width: 2px;\n"
-"border-radius: 15px;\n"
-"border-color: rgb(53, 132, 228);\n"
-"padding: 4px;\n"
-"width: 70px;\n"
-"min-height: 18px;")
+        self.back_button.setStyleSheet("")
         self.back_button.setObjectName("back_button")
         self.horizontalLayout.addWidget(self.back_button)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -186,14 +179,10 @@ class Ui_ResultForm(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 691, 378))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 691, 381))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.res_picture = QtWidgets.QLabel(self.scrollAreaWidgetContents)
-        self.res_picture.setText("")
-        self.res_picture.setObjectName("res_picture")
-        self.verticalLayout_2.addWidget(self.res_picture)
         self.res_text = QtWidgets.QTextBrowser(self.scrollAreaWidgetContents)
         self.res_text.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.res_text.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)

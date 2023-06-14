@@ -6,7 +6,6 @@ from PIL import Image
 import io
 
 from .qt_generated.determinant import Ui_Determinant
-from .qt_generated.dark.dark_determinant import Ui_DarkDeterminant
 from .ResultWindow import ResultWindow
 from ..book import Stage, StagesStack
 
@@ -16,7 +15,8 @@ class DetermWidget(QWidget):
         super().__init__()
         self.parent_window = parent
         self.config = config
-        self.ui = Ui_Determinant() if not int(self.config["dark_mode"]) else Ui_DarkDeterminant()
+        self.flag_on_ending = False
+        self.ui = Ui_Determinant()
         self.ui.setupUi(self)
         self.res_window = ResultWindow(self, self.config, self.parent_window)
         self.error_dialog = QErrorMessage()
@@ -31,6 +31,11 @@ class DetermWidget(QWidget):
         a0.accept()
         self.move(int(self.parent_window.frameGeometry().center().x() - self.frameGeometry().width() / 2),
                   int(self.parent_window.frameGeometry().center().y() - self.frameGeometry().height() / 2))
+
+    def closeEvent(self, a0) -> None:
+        a0.accept()
+        if not self.flag_on_ending:
+            self.parent_window.show()
 
     def eventFilter(self, obj, event) -> bool:
         print(2)
@@ -73,9 +78,11 @@ class DetermWidget(QWidget):
         else:
             stage = self.stages_stack.current_stage().antithesis.target
         if isinstance(stage, Stage):  # Stage
+            self.flag_on_ending = False
             self.stages_stack.add_stage(stage)
             self.display_current_stage()
         else:  # Ending
+            self.flag_on_ending = True
             self.res_window.set_end_stage(stage)
             self.res_window.show()
             self.close()

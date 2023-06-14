@@ -7,7 +7,6 @@ import os
 
 from .tools import install_book
 from .qt_generated.add_dialog import Ui_AddDialog
-from .qt_generated.dark.dark_add_dialog import Ui_DarkAddDialog
 
 
 class AddDialog(QDialog):
@@ -18,7 +17,7 @@ class AddDialog(QDialog):
         self.web_rels = None
         self.error_dialog = QErrorMessage()
         self.error_dialog.setModal(True)
-        self.ui = Ui_AddDialog() if not int(self.config["dark_mode"]) else Ui_DarkAddDialog()
+        self.ui = Ui_AddDialog()
         self.ui.setupUi(self)
         self.ui.select_button.clicked.connect(self.select_clicked)
         self.ui.get_button.clicked.connect(self.get_clicked)
@@ -26,8 +25,8 @@ class AddDialog(QDialog):
 
     def showEvent(self, a0) -> None:
         a0.accept()
-        self.move(self.parent().frameGeometry().center().x() - self.frameGeometry().width() / 2,
-                  self.parent().frameGeometry().center().y() - self.frameGeometry().height() / 2)
+        self.move(int(self.parent().frameGeometry().center().x() - self.frameGeometry().width() / 2),
+                  int(self.parent().frameGeometry().center().y() - self.frameGeometry().height() / 2))
 
     def closeEvent(self, a0: QCloseEvent) -> None:
         if self.onclose_func:
